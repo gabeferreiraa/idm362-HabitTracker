@@ -17,7 +17,7 @@ struct ContentView: View {
                 .cornerRadius(20)
                 .padding()
             
-            Text("My name's Gabe!")
+            Text("My name's Gabriel!")
                 .font(.title)
                 .padding()
             
