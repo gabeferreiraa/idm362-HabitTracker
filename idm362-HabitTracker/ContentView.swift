@@ -18,6 +18,8 @@ struct ContentView: View {
                 )
                 .edgesIgnoringSafeArea(.all)
                 
+                
+                
                 VStack {
                     Text("Welcome to HabitFlow!")
                         .font(.largeTitle)
@@ -45,8 +47,20 @@ struct ContentView: View {
                             .shadow(radius: 5)
                     }
                     .padding(.horizontal)
+                    // NavigationLink to MainScreen
+                    NavigationLink(destination: MainScreen()) {
+                        Text("Continue as guest")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.gray)
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
+                    }
+                    .padding(.horizontal)
                     
-                    Spacer()
+                    
                 }
                 .padding()
             }
