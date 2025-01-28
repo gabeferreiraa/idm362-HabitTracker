@@ -1,42 +1,62 @@
 //
 //  ContentView.swift
-//  idm362-Gabe
+//  idm362-HabitTracker
 //
-//  Created by Gabriel Ferreira on 1/14/25.
+//  Created by Gabriel Ferreira on 1/27/25.
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image("gabe_headshot5-copy")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 300, height: 300)
-                .cornerRadius(20)
+        NavigationView {
+            ZStack {
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.blue, Color.purple]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .edgesIgnoringSafeArea(.all)
+                
+                VStack {
+                    Text("Welcome to HabitFlow!")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.bottom, 8)
+                    
+                    Text("Build better habits, one day at a time.")
+                        .font(.title3)
+                        .foregroundColor(.white.opacity(0.8))
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom, 16)
+                    
+                    Spacer()
+                    
+                    // NavigationLink to MainScreen
+                    NavigationLink(destination: MainScreen()) {
+                        Text("Sign Up")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.purple)
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
+                    }
+                    .padding(.horizontal)
+                    
+                    Spacer()
+                }
                 .padding()
-            
-            Text("My name's Gabriel!")
-                .font(.title)
-                .padding()
-            
-            Button(action: {
-                print("Contacted!")
-            }) {
-                Text("Contact Me")
-                    .font(.headline)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
             }
-            .padding(30)
         }
+        .navigationBarHidden(true) // Hides the navigation bar on this screen
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
