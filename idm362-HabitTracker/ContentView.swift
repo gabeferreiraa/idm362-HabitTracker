@@ -51,7 +51,7 @@ struct ContentView: View {
                 .padding()
             }
         }
-        .navigationBarHidden(true) // Hides the navigation bar on this screen
+        .navigationBarHidden(true) 
     }
 }
 
