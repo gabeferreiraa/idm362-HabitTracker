@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - Model
+
 
 struct Habit: Identifiable, Equatable {
     let id = UUID()
@@ -18,7 +18,7 @@ struct MainScreen: View {
         Habit(name: "Write in a journal")
     ]
     
-    // Controls presentation of the Add Habit screen.
+    
     @State private var showingAddHabit = false
     
     var body: some View {
@@ -42,7 +42,7 @@ struct MainScreen: View {
                 List {
                     ForEach($habits) { $habit in
                         HStack(spacing: 12) {
-                            // Show a filled green circle if completed; otherwise, show an empty blue circle.
+                     
                             if habit.isCompleted {
                                 Circle()
                                     .fill(Color.green)
@@ -60,7 +60,7 @@ struct MainScreen: View {
                             Spacer()
                         }
                         .padding(.vertical, 8)
-                        // Ensures the entire row is tappable.
+             
                         .contentShape(Rectangle())
                         .onTapGesture {
                             habit.isCompleted.toggle()
@@ -89,7 +89,7 @@ struct MainScreen: View {
             }
             .padding()
             .navigationTitle("Main Screen")
-            // Present the Add Habit screen as a custom-styled sheet.
+
             .sheet(isPresented: $showingAddHabit) {
                 AddHabitView { newHabit in
                     habits.append(newHabit)
@@ -104,7 +104,6 @@ struct MainScreen: View {
     }
 }
 
-// MARK: - Add Habit Screen
 
 struct AddHabitView: View {
     
@@ -165,7 +164,7 @@ struct AddHabitView: View {
             Spacer()
         }
         .padding()
-        // Use a matching background color if desired.
+        
         .background(Color.white)
     }
 }
