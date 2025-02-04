@@ -21,7 +21,7 @@ struct ContentView: View {
                 
                 
                 VStack {
-                    Text("Welcome to HabitFlow!")
+                    Text("Greetings from HabitFlow!")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
