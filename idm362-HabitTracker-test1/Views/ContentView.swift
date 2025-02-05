@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    // Access shared UserData obj
+    @EnvironmentObject var userData: UserData
+    
     var body: some View {
+        
         NavigationView {
             ZStack {
                 LinearGradient(
@@ -59,18 +64,32 @@ struct ContentView: View {
                             .shadow(radius: 5)
                     }
                     .padding(.horizontal)
-                    
+                    VStack{
+                        Picker("Pick", selection: $userData.index) {
+                            Image(systemName: "hand.thumbsup").tag(0)
+                            Image(systemName: "hand.thumbsdown").tag(1)
+                            Image(systemName: "trash").tag(2)
+                        }
+                        .pickerStyle(.segmented)
+                        Text("User Picked: \(userData.index)")
+                    }
                     
                 }
                 .padding()
+                
             }
+            
+            
         }
-        .navigationBarHidden(true) 
+        .navigationBarHidden(true)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+        // Make UserData available
+            .environmentObject(UserData())
+        
     }
 }
