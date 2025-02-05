@@ -71,21 +71,6 @@ struct MainScreen: View {
                 .listStyle(PlainListStyle())
                 
                 Spacer()
-                
-                Button(action: {
-                    showingAddHabit = true
-                }) {
-                    Text("Add a Habit")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.purple)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 20)
             }
             .padding()
             .navigationTitle("Main Screen")
