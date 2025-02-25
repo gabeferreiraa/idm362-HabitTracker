@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme // Detects system appearance
+
     var body: some View {
         NavigationView {
             ZStack {
+                // Dynamic gradient based on color scheme
                 LinearGradient(
-                    gradient: Gradient(colors: [Color.blue, Color.purple]),
+                    gradient: Gradient(colors: colorScheme == .dark
+                        ? [Color.blue, Color.purple] // Dark mode
+                        : [Color.blue, Color.white] // Light mode
+                    ),
                     startPoint: .top,
                     endPoint: .bottom
                 )
                 .edgesIgnoringSafeArea(.all)
-                
-                
                 
                 VStack {
                     Text("Welcome to HabitFlow!")
@@ -35,8 +39,8 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    // NavigationLink to MainScreen
-                    NavigationLink(destination: MainScreen()) {
+                    // NavigationLink to SignUp screen
+                    NavigationLink(destination: SignUp()) {
                         Text("Sign Up")
                             .font(.headline)
                             .foregroundColor(.white)
@@ -47,6 +51,7 @@ struct ContentView: View {
                             .shadow(radius: 5)
                     }
                     .padding(.horizontal)
+                    
                     // NavigationLink to MainScreen
                     NavigationLink(destination: MainScreen()) {
                         Text("Continue as guest")
@@ -60,17 +65,19 @@ struct ContentView: View {
                     }
                     .padding(.horizontal)
                     
-                    
                 }
                 .padding()
             }
         }
-        .navigationBarHidden(true) 
+        .navigationBarHidden(true)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark) // Preview in dark mode
+        ContentView()
+            .preferredColorScheme(.light) // Preview in light mode
     }
 }
