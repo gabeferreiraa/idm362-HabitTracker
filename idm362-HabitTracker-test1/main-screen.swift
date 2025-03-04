@@ -7,7 +7,7 @@ struct Habit: Identifiable, Equatable {
     var name: String
     var isCompleted: Bool = false
 }
-
+// Main View
 struct MainScreen: View {
     
     @State private var habits = [
