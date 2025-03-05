@@ -1,30 +1,29 @@
 import SwiftUI
+import SwiftData
 
-
-
-struct Habit: Identifiable, Equatable {
-    let id = UUID()
+@Model
+class Habit {
+    var id: String
     var name: String
     var isCompleted: Bool = false
+    
+    init(name: String, isCompleted: Bool = false) {
+        self.id = UUID().uuidString
+        self.name = name
+        self.isCompleted = isCompleted
+    }
 }
+
 // Main View
 struct MainScreen: View {
-    
-    @State private var habits = [
-        Habit(name: "Drink 8 glasses of water"),
-        Habit(name: "Walk 10,000 steps"),
-        Habit(name: "Read for 30 minutes"),
-        Habit(name: "Meditate for 10 minutes"),
-        Habit(name: "Write in a journal")
-    ]
-    
+    @Environment(\ .modelContext) private var context
+    @Query private var habits: [Habit]
     
     @State private var showingAddHabit = false
     
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                
                 Text("Welcome to HabitFlow!")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -40,9 +39,8 @@ struct MainScreen: View {
                     .padding(.bottom, 8)
                 
                 List {
-                    ForEach($habits) { $habit in
+                    ForEach(habits) { habit in
                         HStack(spacing: 12) {
-                     
                             if habit.isCompleted {
                                 Circle()
                                     .fill(Color.green)
@@ -60,10 +58,10 @@ struct MainScreen: View {
                             Spacer()
                         }
                         .padding(.vertical, 8)
-             
                         .contentShape(Rectangle())
                         .onTapGesture {
                             habit.isCompleted.toggle()
+                            try? context.save()
                         }
                     }
                     .onDelete(perform: deleteHabit)
@@ -88,30 +86,25 @@ struct MainScreen: View {
                 .padding(.bottom, 20)
             }
             .padding()
-            .navigationTitle("Main Screen")
-
             .sheet(isPresented: $showingAddHabit) {
-                AddHabitView { newHabit in
-                    habits.append(newHabit)
-                }
+                AddHabitView()
             }
         }
     }
     
     // Deletes habits from the list.
     private func deleteHabit(at offsets: IndexSet) {
-        habits.remove(atOffsets: offsets)
+        for index in offsets {
+            context.delete(habits[index])
+        }
+        try? context.save()
     }
 }
 
-
 struct AddHabitView: View {
-    
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\ .presentationMode) var presentationMode
+    @Environment(\ .modelContext) private var context
     @State private var habitName: String = ""
-    
-    // Closure to pass the new habit back.
-    var addHabit: (Habit) -> Void
     
     var body: some View {
         VStack(spacing: 20) {
@@ -145,7 +138,9 @@ struct AddHabitView: View {
                 
                 Button(action: {
                     if !habitName.trimmingCharacters(in: .whitespaces).isEmpty {
-                        addHabit(Habit(name: habitName))
+                        let newHabit = Habit(name: habitName)
+                        context.insert(newHabit)
+                        try? context.save()
                     }
                     presentationMode.wrappedValue.dismiss()
                 }) {
@@ -164,13 +159,11 @@ struct AddHabitView: View {
             Spacer()
         }
         .padding()
-        
         .background(Color.white)
     }
 }
 
 // MARK: - Preview
-
 struct MainScreen_Previews: PreviewProvider {
     static var previews: some View {
         MainScreen()

@@ -1,13 +1,8 @@
-//
-//  SignUp.swift
-//  idm362-HabitTracker
-//
-//  Created by Gabriel Ferreira on 1/27/25.
-//
-
 import SwiftUI
 
 struct SignUp: View {
+    @Environment(\.presentationMode) var presentationMode // Environment variable for dismissing view
+    
     @State private var username: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
@@ -79,7 +74,16 @@ struct SignUp: View {
                 }
                 .padding()
             }
-            .navigationBarTitle("Sign Up", displayMode: .inline)
+            
+            .navigationBarItems(leading: Button(action: {
+                presentationMode.wrappedValue.dismiss() // Dismiss the view
+            }) {
+                HStack {
+                    Image(systemName: "chevron.left") // Back arrow icon
+                    Text("Back")
+                }
+                .foregroundColor(.white)
+            })
         }
     }
 }

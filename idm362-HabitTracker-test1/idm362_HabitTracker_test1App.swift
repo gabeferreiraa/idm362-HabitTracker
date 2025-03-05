@@ -13,5 +13,6 @@ struct idm362_HabitTracker_test1App: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: Habit.self) 
     }
 }
