@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D5AD3CFA2D49BE490098F908 /* Build configuration list for PBXProject "idm362-HabitTracker-test1" */;
+			buildConfigurationList = D5AD3CFA2D49BE490098F908 /* Build configuration list for PBXProject "Habit Tracker" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -303,7 +303,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D5AD3CFA2D49BE490098F908 /* Build configuration list for PBXProject "idm362-HabitTracker-test1" */ = {
+		D5AD3CFA2D49BE490098F908 /* Build configuration list for PBXProject "Habit Tracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5AD3D0B2D49BE4A0098F908 /* Debug */,
